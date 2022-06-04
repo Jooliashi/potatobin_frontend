@@ -60,7 +60,7 @@ const App = () => {
     //   .then(response => {
     //     setEndpoint(response.endpointId)
     //   })
-    let endpoint = 'acde1'
+    let endpoint = 'abcde1'
     setEndpoint(endpoint)
     setEndpointCreated(true)
   }

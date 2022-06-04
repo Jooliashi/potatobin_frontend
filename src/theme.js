@@ -10,6 +10,10 @@ const theme = createTheme({
       color: '#412a1a',
       fontFamily: '"Changa One", Open Sans',
     },
+    h5: {
+      color: '#412a1a',
+      fontFamily: '"Changa One", Open Sans',
+    },
     h6: {
       color: '#412a1a',
       fontFamily: '"Changa One", Open Sans',

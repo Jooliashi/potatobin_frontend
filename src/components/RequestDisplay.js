@@ -2,20 +2,25 @@ import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
 import { useState, useEffect } from 'react'
 import endpointService from '../services/endpoints'
 import { Typography } from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+// import { Divider } from 'react-native-elements'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { v4 } from 'uuid'
 
 const RequestDisplay = ({ endpoint }) => {
   const [requests, setRequests] = useState([])
   const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
-    endpointService
-      .getAll()
-      .then(allRequests => {
-        setRequests(allRequests)
-      }).catch(error => {
-        setErrorMessage('No such potato bin!')
-      })
+    // endpointService
+    //   .getAll()
+    //   .then(allRequests => {
+    //     setRequests(allRequests)
+    //     setErrorMessage('')
+    //   }).catch(error => {
+    //     setErrorMessage('No such potato bin!')
+    //   })
+
+    // link, created_at, last_request_at, count, is_active
   }, [])
 
   // const dispatch = useDispatch()
@@ -42,40 +47,48 @@ const RequestDisplay = ({ endpoint }) => {
 
   return (
     <>
-      <Typography variant="h4">{errorMessage}</Typography>
-      {requests.map(request =>
-        <Accordion key={uuid()}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-          >
-            // maybe change to time?
-            <Typography>Request Method: {request.requestMethod} | Request IP: {request.requestIp}</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Headers:
-              {Object.keys(request.headers).map(headerKey =>
-                <Typography key={uuid()}>{headerKey}: {request.headers.headerKey}</Typography>
-              )}
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-              <Accordion>
+      {errorMessage !== '' ?
+        <Typography variant="h4">{errorMessage}</Typography> :
+        <>
+          <Typography variant="h6">Link: {`http://potatobin.com/${endpoint}`}</Typography>
+          <hr style={{height: 1, width: '50vw', borderColor: '#412a1a', backgroundColor: '#412a1a'}} />
+          {/* <hr
+              style={{
+                  color: 'black',
+                  backgroundColor: 'black',
+                  borderColor: 'black',
+                  height: 5
+              }}
+          /> */}
+          {/* <Divider spacing={10} /> */}
+          <Typography variant="h4">Potatoes in your bin:</Typography>
+          <hr style={{height: 0.5}} />
+          {requests.map(request =>
+            <Accordion sx={{width: '50vw'}} key={v4()}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
               >
-                <Typography>Accordion 1</Typography>
+                <Typography>Request Method: {request.requestMethod} | Request IP: {request.requestIp}</Typography>
               </AccordionSummary>
               <AccordionDetails>
+                <Typography variant="h5">
+                  Headers:
+                </Typography>
+                {Object.keys(request.headers).map(headerKey =>
+                  <Typography key={v4()}>{headerKey}: {request.headers[headerKey]}</Typography>
+                )}
+                <hr style={{height: 0.5}} />
+                <Typography variant="h5">
+                  Body:
+                </Typography>
                 <Typography>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                  malesuada lacus ex, sit amet blandit leo lobortis eget.
+                  {request.payload}
                 </Typography>
               </AccordionDetails>
             </Accordion>
-      )}
+          )}
+        </>
+      }
     </>
     // <div>
 
