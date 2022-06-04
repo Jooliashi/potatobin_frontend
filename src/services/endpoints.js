@@ -11,5 +11,10 @@ const create = () => {
   return request.then(response => response.data)
 }
 
-const exported = { getAll, create }
+const getRequestDetail = (id) => {
+  const request = axios.get(`${baseUrl}/${id}`)
+  return request.then(response => response.data)
+}
+
+const exported = { getAll, create, getRequestDetail }
 export default exported
