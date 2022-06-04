@@ -14,13 +14,13 @@ const App = () => {
 
   const handleCreateBinClick = (event) => {
     event.preventDefault()
-    // endpointService
-    //   .create()
-    //   .then(response => {
-    //     setEndpoint(response.endpointId)
-    //   })
-    let endpoint = 'abcde1'
-    setEndpoint(endpoint)
+    endpointService
+      .create()
+      .then(response => {
+        setEndpoint(response.endpointId)
+      })
+    // let endpoint = 'abcde1'
+    // setEndpoint(endpoint)
     setEndpointCreated(true)
   }
 

@@ -12,20 +12,20 @@ const RequestDisplay = () => {
   const endpoint = useParams().id
 
   useEffect(() => {
-    // endpointService
-    //   .getAll(endpoint)
-    //   .then(allRequests => {
-    //     setRequests(allRequests)
-    //     setErrorMessage('')
-    //   }).catch(error => {
-    //     setErrorMessage('No such potato bin!')
-    //   })
-    let requestsExample = [
-      {requestMethod: 'POST', requestIp: '111.111', headers: {'Host': 'Cookie Monster', 'Accept-Language': 'en-US', 'Content-Type': 'application/json', 'Content-Length': 500}, payload: 'I love potatoes and cooookiieeees!', endpointId: 'abcde1'},
-      {requestMethod: 'POST', requestIp: '222.222', headers: {'Host': 'Oscar the Grouch', 'Content-Type': 'application/json', 'Content-Length': 1000}, payload: 'trash trash trash I love trash', endpointId: 'abcde1'},
-      {requestMethod: 'POST', requestIp: '333.333', headers: {'Host': 'Big Bird', 'Accept-Language': 'en-US', 'Content-Type': 'application/json', 'Content-Length': 900}, payload: 'PO-TAE-TOEEEEE', endpointId: 'abcde1'}
-    ];
-    setRequests(requestsExample)
+    endpointService
+      .getAll(endpoint)
+      .then(allRequests => {
+        setRequests(allRequests)
+        setErrorMessage('')
+      }).catch(error => {
+        setErrorMessage('No such potato bin!')
+      })
+    // let requestsExample = [
+    //   {requestMethod: 'POST', requestIp: '111.111', headers: {'Host': 'Cookie Monster', 'Accept-Language': 'en-US', 'Content-Type': 'application/json', 'Content-Length': 500}, payload: 'I love potatoes and cooookiieeees!', endpointId: 'abcde1'},
+    //   {requestMethod: 'POST', requestIp: '222.222', headers: {'Host': 'Oscar the Grouch', 'Content-Type': 'application/json', 'Content-Length': 1000}, payload: 'trash trash trash I love trash', endpointId: 'abcde1'},
+    //   {requestMethod: 'POST', requestIp: '333.333', headers: {'Host': 'Big Bird', 'Accept-Language': 'en-US', 'Content-Type': 'application/json', 'Content-Length': 900}, payload: 'PO-TAE-TOEEEEE', endpointId: 'abcde1'}
+    // ];
+    // setRequests(requestsExample)
   }, [endpoint])
 
   return (
