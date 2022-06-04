@@ -2,48 +2,31 @@ import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
 import { useState, useEffect } from 'react'
 import endpointService from '../services/endpoints'
 import { Typography } from '@mui/material'
-// import { Divider } from 'react-native-elements'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { v4 } from 'uuid'
+import { useParams } from 'react-router-dom'
 
-const RequestDisplay = ({ endpoint }) => {
+const RequestDisplay = () => {
   const [requests, setRequests] = useState([])
   const [errorMessage, setErrorMessage] = useState('')
+  const endpoint = useParams().id
 
   useEffect(() => {
     // endpointService
-    //   .getAll()
+    //   .getAll(endpoint)
     //   .then(allRequests => {
     //     setRequests(allRequests)
     //     setErrorMessage('')
     //   }).catch(error => {
     //     setErrorMessage('No such potato bin!')
     //   })
-
-    // link, created_at, last_request_at, count, is_active
-  }, [])
-
-  // const dispatch = useDispatch()
-
-  // if (!blog) {
-  //   return null
-  // }
-
-  // const handleLikes = () => {
-  //   incrementLikes(blog)
-  // }
-
-  // const handleRemoval = () => {
-  //   if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
-  //     removeBlog(blog)
-  //   }
-  // }
-
-  // const addComment = async (blogId, newComment) => {
-  //   const returnedBlog = await commentsService.create(blogId, newComment)
-  //   dispatch(updateBlog(blogId, returnedBlog))
-  //   return returnedBlog
-  // }
+    let requestsExample = [
+      {requestMethod: 'POST', requestIp: '111.111', headers: {'Host': 'Cookie Monster', 'Accept-Language': 'en-US', 'Content-Type': 'application/json', 'Content-Length': 500}, payload: 'I love potatoes and cooookiieeees!', endpointId: 'abcde1'},
+      {requestMethod: 'POST', requestIp: '222.222', headers: {'Host': 'Oscar the Grouch', 'Content-Type': 'application/json', 'Content-Length': 1000}, payload: 'trash trash trash I love trash', endpointId: 'abcde1'},
+      {requestMethod: 'POST', requestIp: '333.333', headers: {'Host': 'Big Bird', 'Accept-Language': 'en-US', 'Content-Type': 'application/json', 'Content-Length': 900}, payload: 'PO-TAE-TOEEEEE', endpointId: 'abcde1'}
+    ];
+    setRequests(requestsExample)
+  }, [endpoint])
 
   return (
     <>
@@ -52,15 +35,6 @@ const RequestDisplay = ({ endpoint }) => {
         <>
           <Typography variant="h6">Link: {`http://potatobin.com/${endpoint}`}</Typography>
           <hr style={{height: 1, width: '50vw', borderColor: '#412a1a', backgroundColor: '#412a1a'}} />
-          {/* <hr
-              style={{
-                  color: 'black',
-                  backgroundColor: 'black',
-                  borderColor: 'black',
-                  height: 5
-              }}
-          /> */}
-          {/* <Divider spacing={10} /> */}
           <Typography variant="h4">Potatoes in your bin:</Typography>
           <hr style={{height: 0.5}} />
           {requests.map(request =>
@@ -68,7 +42,7 @@ const RequestDisplay = ({ endpoint }) => {
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
               >
-                <Typography>Request Method: {request.requestMethod} | Request IP: {request.requestIp}</Typography>
+                <Typography><span style={{color: 'red'}}>{request.requestMethod}</span> | Request IP: {request.requestIp}</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography variant="h5">
@@ -90,31 +64,6 @@ const RequestDisplay = ({ endpoint }) => {
         </>
       }
     </>
-    // <div>
-
-    // </div>
-    // <div className='blog-details' id={blog.title}>
-    //   <h2>{blog.title} {blog.author}</h2>
-    //   <div>{blog.url}</div>
-    //   <div>
-    //     {blog.likes} likes
-    //     <button id='like-button' onClick={handleLikes}>like</button>
-    //   </div>
-    //   <div>added by {blog.user.name}</div>
-    //   {currentUser.username === blog.user.username ?
-    //     <button id='remove-button' onClick={handleRemoval}>remove</button> :
-    //     ''}
-    //   <h3>comments</h3>
-    //   <CommentForm blogId={blog.id} createComment={addComment} />
-    //   {blog.comments.length > 0 ?
-    //     <ListGroup variant="flush">
-    //       {blog.comments.map(comment =>
-    //         <ListGroup.Item key={comment}>{comment}</ListGroup.Item>
-    //       )}
-    //     </ListGroup>
-    //     : <div>No comments</div>
-    //   }
-    // </div>
   )
 }
 

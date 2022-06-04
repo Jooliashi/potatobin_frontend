@@ -23,7 +23,3 @@ const LinkOptions = ({ endpoint, handleCopyClick, copyClickLabel, handleEndpoint
 }
 
 export default LinkOptions
-
-// Send potatoes (a.k.a. requests) to this link:
-// Copy Link
-// See your potatoes:

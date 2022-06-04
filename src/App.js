@@ -12,47 +12,6 @@ const App = () => {
   const [endpointCreated, setEndpointCreated] = useState(false)
   const [copyClickLabel, setCopyClickLabel] = useState('Copy Link')
 
-  // useEffect(() => {
-  //   RequestDisplay
-  // }, [endpoint])
-
-  // const filterPersons = () => {
-  //   let lowercaseFilter = filter.toLowerCase()
-  //   return persons.filter(({name}) => {
-  //     return name.toLowerCase().startsWith(lowercaseFilter)
-  //   })
-  // }
-
-  // const createPerson = () => {
-  //   const newPerson = {name: newName, number: newNumber}
-
-  //   personService
-  //     .create(newPerson)
-  //     .then(returnedPerson => {
-  //       setPersons(persons.concat(returnedPerson))
-  //       setMessage(`Added ${returnedPerson.name}`)
-  //       setMessageType('success')
-  //       delayResetMessage()
-  //     })
-  //     .catch(error => {
-  //       if (error.response.status === 500) {
-  //         updatePerson()
-  //       } else {
-  //         setMessage(error.response.data.error)
-  //         setMessageType('error')
-  //         delayResetMessage()
-  //       }
-  //     })
-  // }
-
-  // const addPerson = (event) => {
-  //   event.preventDefault()
-
-  //   createPerson()
-  //   setNewName('')
-  //   setNewNumber('')
-  // }
-
   const handleCreateBinClick = (event) => {
     event.preventDefault()
     // endpointService
@@ -90,7 +49,7 @@ const App = () => {
       >
         <Header />
         <Routes>
-          <Route path="/:id" element={<RequestDisplay endpoint={endpoint} />} />
+          <Route path="/:id" element={<RequestDisplay />} />
           <Route path="/" element={endpointCreated ?
             <LinkOptions
               endpoint={endpoint}

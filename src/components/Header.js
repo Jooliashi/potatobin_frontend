@@ -6,12 +6,7 @@ const Header = () => {
       <Typography variant="h1">
         PotatoBin
       </Typography>
-      {/* <img src={logo} alt="potato" /> */}
-      {/* <img src='../static/images/image.png'></img> */}
     </>
-
-
-    // <h1>PotatoBin!!!</h1>
   )
 }
 
