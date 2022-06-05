@@ -13,38 +13,31 @@ const RequestDisplay = () => {
   const endpoint = useParams().id
   
   useEffect(() => {
-    // endpointService
-    // .getRequestDetail(endpoint)
-    // .then(detail => {
-    //   setRequestDetail(detail)
-    //   setErrorMessage('')
-    // }).catch(error => {
-    //   setErrorMessage('No such potato bin!')
-    // })
+    endpointService
+    .getRequestDetail(endpoint)
+    .then(detail => {
+      setRequestDetail(detail)
+      setErrorMessage('')
+    }).catch(error => {
+      setErrorMessage('No such potato bin!')
+    })
 
-    // if (Object.keys(requestDetail).length !== 0) {
-    //   endpointService
-    //   .getAll(endpoint)
-    //   .then(allRequests => {
-    //     setRequests(allRequests)
-    //     setErrorMessage('')
-    //   }).catch(error => {
-    //     setErrorMessage('No Requests Yet!')
-    //   })
-    // }
-    let requestsExample = [
-      {requestMethod: 'POST', requestIp: '111.111', headers: {'Host': 'Cookie Monster', 'Accept-Language': 'en-US', 'Content-Type': 'application/json', 'Content-Length': 500}, payload: 'I love potatoes and cooookiieeees!', endpointId: 'abcde1'},
-      {requestMethod: 'POST', requestIp: '222.222', headers: {'Host': 'Oscar the Grouch', 'Content-Type': 'application/json', 'Content-Length': 1000}, payload: 'trash trash trash I love trash', endpointId: 'abcde1'},
-      {requestMethod: 'POST', requestIp: '333.333', headers: {'Host': 'Big Bird', 'Accept-Language': 'en-US', 'Content-Type': 'application/json', 'Content-Length': 900}, payload: 'PO-TAE-TOEEEEE', endpointId: 'abcde1'}
-    ];
-    let requestDetailExample = {
-      created_at: '2202-06-06',
-      last_request_at: '2202-06-06',
-      count: 1,
-      is_active: 'true',
+    if (Object.keys(requestDetail).length !== 0) {
+      endpointService
+      .getAll(endpoint)
+      .then(allRequests => {
+        setRequests(allRequests)
+        setErrorMessage('')
+      }).catch(error => {
+        setErrorMessage('No Requests Yet!')
+      })
     }
-    setRequestDetail(requestDetailExample)
-    setRequests(requestsExample)
+    // let requestsExample = [
+    //   {requestMethod: 'POST', requestIp: '111.111', headers: {'Host': 'Cookie Monster', 'Accept-Language': 'en-US', 'Content-Type': 'application/json', 'Content-Length': 500}, payload: 'I love potatoes and cooookiieeees!', endpointId: 'abcde1'},
+    //   {requestMethod: 'POST', requestIp: '222.222', headers: {'Host': 'Oscar the Grouch', 'Content-Type': 'application/json', 'Content-Length': 1000}, payload: 'trash trash trash I love trash', endpointId: 'abcde1'},
+    //   {requestMethod: 'POST', requestIp: '333.333', headers: {'Host': 'Big Bird', 'Accept-Language': 'en-US', 'Content-Type': 'application/json', 'Content-Length': 900}, payload: 'PO-TAE-TOEEEEE', endpointId: 'abcde1'}
+    // ];
+    // setRequests(requestsExample)
   }, [endpoint])
 
   return (
@@ -55,14 +48,15 @@ const RequestDisplay = () => {
           <Typography variant="h6">Link: {`http://potatobin.com/${endpoint}`}</Typography>
           <Box
             sx={{ 
-              width: '18.6vw',
               height: '300',
               backgroundColor: '#f2a45a',
               padding: '5px'
              }}
           >
             {Object.keys(requestDetail).map(title =>
-                  <Typography key={v4()}>{title}: {requestDetail[title]}</Typography>
+                  title === "is_active" ? 
+                    <Typography key={v4()}>{title}: true </Typography> :
+                    <Typography key={v4()}>{title}: {requestDetail[title]}</Typography>
             )}
           </Box>
           <hr style={{height: 1, width: '50vw', borderColor: '#412a1a', backgroundColor: '#412a1a'}} />
@@ -86,9 +80,9 @@ const RequestDisplay = () => {
                 <Typography variant="h5">
                   Body:
                 </Typography>
-                <Typography>
-                  {request.payload}
-                </Typography>
+                  {Object.keys(request.payload).map(payloadKey =>
+                    <Typography key={v4()}>{payloadKey}: {request.payload[payloadKey]}</Typography>
+                  )}
               </AccordionDetails>
             </Accordion>
           )}
