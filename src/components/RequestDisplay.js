@@ -16,13 +16,17 @@ const RequestDisplay = () => {
     endpointService
     .getRequestDetail(endpoint)
     .then(detail => {
-      setRequestDetail(detail)
-      setErrorMessage('')
+      if (detail.binNotFound) {
+        setErrorMessage('Such potato bin does not exist!')
+      } else {
+        setRequestDetail(detail)
+        setErrorMessage('')
+      }
     }).catch(error => {
-      setErrorMessage('No such potato bin!')
+      setErrorMessage(Object.keys(error)[0])
     })
 
-    if (Object.keys(requestDetail).length !== 0) {
+    if (Object.keys(requestDetail).length !== 0 || !requestDetail) {
       endpointService
       .getAll(endpoint)
       .then(allRequests => {
@@ -32,12 +36,6 @@ const RequestDisplay = () => {
         setErrorMessage('No Requests Yet!')
       })
     }
-    // let requestsExample = [
-    //   {requestMethod: 'POST', requestIp: '111.111', headers: {'Host': 'Cookie Monster', 'Accept-Language': 'en-US', 'Content-Type': 'application/json', 'Content-Length': 500}, payload: 'I love potatoes and cooookiieeees!', endpointId: 'abcde1'},
-    //   {requestMethod: 'POST', requestIp: '222.222', headers: {'Host': 'Oscar the Grouch', 'Content-Type': 'application/json', 'Content-Length': 1000}, payload: 'trash trash trash I love trash', endpointId: 'abcde1'},
-    //   {requestMethod: 'POST', requestIp: '333.333', headers: {'Host': 'Big Bird', 'Accept-Language': 'en-US', 'Content-Type': 'application/json', 'Content-Length': 900}, payload: 'PO-TAE-TOEEEEE', endpointId: 'abcde1'}
-    // ];
-    // setRequests(requestsExample)
   }, [endpoint])
 
   return (
